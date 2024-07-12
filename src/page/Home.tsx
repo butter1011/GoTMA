@@ -289,7 +289,8 @@ var timer:any;
 
       const data = await response.json();
       if (!data.error) {
-        setTapCount(data?.taps?.tap_amount);
+        setTapCount(0);
+        // setTapCount(data?.taps?.tap_amount);
         setRemainedEnergy(data?.taps?.tap_remaining);
       }
     } catch (error) {
