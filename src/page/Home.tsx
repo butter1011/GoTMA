@@ -20,7 +20,6 @@ function Home() {
   const [totalTaps, setTotalTaps] = useState(0);
   const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
-
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
   //   console.log('storedEnergystoredEnergy', storedEnergy)
@@ -41,7 +40,7 @@ function Home() {
 
     return () => clearTimeout(timer);
   }, [isTapping, address, tapCount]);
-  
+
   useEffect(() => {
     const fetchAll = async () => {
       setLastClickTime(Date.now());
@@ -236,7 +235,7 @@ function Home() {
   const handleTap = (event: any) => {
     setLastClickTime(Date.now());
     stopRecovery();
-  
+
     if (!address) {
       setModalVisible(true);
       return;
@@ -244,7 +243,7 @@ function Home() {
     if (remainedEnergy > 0) {
       setRemainedEnergy(remainedEnergy - 1);
       localStorage.setItem("remainedEnergy", String(remainedEnergy - 1));
-      setTapCount(prevCount => prevCount + 1);
+      setTapCount(tapCount + 1);
       handleClick(event);
       setIsTapping(true); // Set tapping state
     }
@@ -260,7 +259,7 @@ function Home() {
     const length = event.touches.length;
     if (remainedEnergy - length >= 0 && length >= 1) {
       setRemainedEnergy(remainedEnergy - length);
-      setTapCount(prevCount => prevCount + length);
+      setTapCount(tapCount + length);
       handleMultiTouchStart(event);
       setIsTapping(true); // Set tapping state
     }
@@ -328,7 +327,7 @@ function Home() {
       handleClick({
         ...touch,
         target: event.target,
-        preventDefault: () => {}, // Mock preventDefault for non-MouseEvent
+        preventDefault: () => { }, // Mock preventDefault for non-MouseEvent
         clientX: touch.clientX,
         clientY: touch.clientY,
         touches: [],
@@ -389,18 +388,18 @@ function Home() {
         <div className="flex flex-row justify-center items-center not-selectable mt-4">
           <img src="/image/coin_small.svg" />
           <h3 className="text-3xl text-white">
-            {formatNumberWithCommas((tapCount + totalTaps)!)}
+            {tapCount} Hello Everyone
+            {formatNumberWithCommas((tapCount + totalTaps))}
           </h3>
         </div>
       </div>
 
       {/* Tap Go! Icon */}
       <div
-        className={`relative max-sm:my-0 rounded-full bg-cover aspect-square h-[45vh] flex-shrink-0 items-center justify-center ${
-          remainedEnergy > 0
+        className={`relative max-sm:my-0 rounded-full bg-cover aspect-square h-[45vh] flex-shrink-0 items-center justify-center ${remainedEnergy > 0
             ? "cursor-pointer"
             : "cursor-not-allowed opacity-50"
-        }`}
+          }`}
         ref={bodyRef}
         style={{ backgroundImage: "url('/image/coin_big.png')" }}
         onTouchStart={(e) => {
