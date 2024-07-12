@@ -38,7 +38,7 @@ function Home() {
       }, 1000); // 300 milliseconds delay
     }
 
-    // return () => clearTimeout(timer);
+    return () => clearTimeout(timer);
   }, [isTapping, address, tapCount]);
 
   useEffect(() => {
