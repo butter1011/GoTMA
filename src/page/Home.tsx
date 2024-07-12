@@ -27,9 +27,9 @@ function Home() {
   //     setRemainedEnergy(parseInt(storedEnergy, 10));
   //   }
   // }, []);
-
+var timer:any;
   useEffect(() => {
-    let timer: any;
+    // let timer: any;
 
     if (isTapping) {
       timer = setTimeout(() => {
@@ -38,7 +38,7 @@ function Home() {
       }, 1000); // 300 milliseconds delay
     }
 
-    return () => clearTimeout(timer);
+    // return () => clearTimeout(timer);
   }, [isTapping, address, tapCount]);
 
   useEffect(() => {
@@ -243,6 +243,7 @@ function Home() {
     if (remainedEnergy > 0) {
       setRemainedEnergy(remainedEnergy - 1);
       localStorage.setItem("remainedEnergy", String(remainedEnergy - 1));
+      clearTimeout(timer);
       setTapCount(tapCount + 1);
       handleClick(event);
       setIsTapping(true); // Set tapping state
