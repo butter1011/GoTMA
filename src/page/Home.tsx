@@ -27,9 +27,9 @@ function Home() {
   //     setRemainedEnergy(parseInt(storedEnergy, 10));
   //   }
   // }, []);
-var timer:any;
+  // var timer: any;
   useEffect(() => {
-    // let timer: any;
+    let timer: any;
 
     if (isTapping) {
       timer = setTimeout(() => {
@@ -243,7 +243,7 @@ var timer:any;
     if (remainedEnergy > 0) {
       setRemainedEnergy(remainedEnergy - 1);
       localStorage.setItem("remainedEnergy", String(remainedEnergy - 1));
-      clearTimeout(timer);
+      // clearTimeout(timer);
       setTapCount(tapCount + 1);
       handleClick(event);
       setIsTapping(true); // Set tapping state
@@ -399,8 +399,8 @@ var timer:any;
       {/* Tap Go! Icon */}
       <div
         className={`relative max-sm:my-0 rounded-full bg-cover aspect-square h-[45vh] flex-shrink-0 items-center justify-center ${remainedEnergy > 0
-            ? "cursor-pointer"
-            : "cursor-not-allowed opacity-50"
+          ? "cursor-pointer"
+          : "cursor-not-allowed opacity-50"
           }`}
         ref={bodyRef}
         style={{ backgroundImage: "url('/image/coin_big.png')" }}
