@@ -12,8 +12,8 @@ function Home() {
     useEnergy(); // use the context
   const [isTouch, setIsTouch] = useState(false); // New state to track touch event
   const [lastClickTime, setLastClickTime] = useState<number | null>(null);
-  const recoveryIntervalRef = useRef<number | null>(null);
-  const [token, setToken] = useState<number>(0);
+  // const recoveryIntervalRef = useRef<number | null>(null);
+  // const [token, setToken] = useState<number>(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [tapCount, setTapCount] = useState(0);
@@ -125,7 +125,7 @@ function Home() {
         throw new Error(`HTTP error status: ${response.status}`);
       }
 
-      const data = await response.json();
+      // const data = await response.json();
       // if (!data.error) setRemainedEnergy(data.data.remaining);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
