@@ -35,7 +35,7 @@ function Home() {
       timer = setTimeout(() => {
         fetchCreateTap(address, tapCount);
         setIsTapping(false); // Reset tapping state
-      }, 300); // 300 milliseconds delay
+      }, 1000); // 300 milliseconds delay
     }
 
     return () => clearTimeout(timer);
