@@ -192,9 +192,9 @@ function Home() {
   //   }
   // }
 
-  function formatNumberWithCommas(number: number, locale = "en-US") {
-    return new Intl.NumberFormat(locale).format(number);
-  }
+  // function formatNumberWithCommas(number: number, locale = "en-US") {
+  //   return new Intl.NumberFormat(locale).format(number);
+  // }
 
   const bodyRef = useRef<HTMLDivElement | null>(null);
 
