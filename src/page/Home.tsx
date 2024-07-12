@@ -33,6 +33,7 @@ function Home() {
 
     if (isTapping) {
       timer = setTimeout(() => {
+        // settapCount(tapCount-tapCount1
         fetchCreateTap(address, tapCount);
         setIsTapping(false); // Reset tapping state
       }, 1000); // 300 milliseconds delay
@@ -245,6 +246,7 @@ function Home() {
       localStorage.setItem("remainedEnergy", String(remainedEnergy - 1));
       // clearTimeout(timer);
       setTapCount(tapCount + 1);
+      setTotalTaps(totalTaps + 1);
       handleClick(event);
       setIsTapping(true); // Set tapping state
     }
@@ -290,6 +292,7 @@ function Home() {
       const data = await response.json();
       if (!data.error) {
         setTapCount(0);
+        // setTotalTaps(totalTaps + data?.taps?.tap_amount);
         // setTapCount(data?.taps?.tap_amount);
         setRemainedEnergy(data?.taps?.tap_remaining);
       }
@@ -390,8 +393,8 @@ function Home() {
         <div className="flex flex-row justify-center items-center not-selectable mt-4">
           <img src="/image/coin_small.svg" />
           <h3 className="text-3xl text-white">
-            {tapCount} Hello Everyone
-            {formatNumberWithCommas((tapCount + totalTaps))}
+            {totalTaps}
+            {/* {formatNumberWithCommas((tapCount + totalTaps))} */}
           </h3>
         </div>
       </div>
