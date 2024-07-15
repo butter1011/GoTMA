@@ -310,7 +310,7 @@ function Home() {
 
       const data = await response.json();
       if (!data.error) {
-        console.log("------------->API request !---------->");
+        console.log("------------->API Success!---------->");
         // setTotalTaps(totalTaps + data?.taps?.tap_amount);
         // setTapCount(data?.taps?.tap_amount);
         setRemainedEnergy(data?.taps?.tap_remaining);
