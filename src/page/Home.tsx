@@ -247,7 +247,8 @@ function Home() {
       setRemainedEnergy(remainedEnergy - 1);
       localStorage.setItem("remainedEnergy", String(remainedEnergy - 1));
       // clearTimeout(timer);
-      setTapCount(tapCount + 1);
+      // setTapCount(tapCount + 1);
+      setTapCount(1);
       setTotalTaps(totalTaps + 1);
       handleClick(event);
       // setIsTapping(true); // Set tapping state
