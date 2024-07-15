@@ -29,9 +29,10 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    if(tapCount != 0)
+    if (tapCount != 0) {
       fetchCreateTap(address, tapCount);
-
+      setTapCount(0);
+    }
     console.log("--------------------->TapCount", tapCount);
     // setIsTapping(false); // Reset tapping state
     // let timer: any;
@@ -299,7 +300,6 @@ function Home() {
       if (!data.error) {
         // setTotalTaps(totalTaps + data?.taps?.tap_amount);
         // setTapCount(data?.taps?.tap_amount);
-        setTapCount(0);
         setRemainedEnergy(data?.taps?.tap_remaining);
       }
     } catch (error) {
