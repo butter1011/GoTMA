@@ -31,8 +31,8 @@ function Home() {
   useEffect(() => {
     const updateTap = async () => {
       if (tapCount != 0) {
-        await fetchCreateTap(address, tapCount);
         setTapCount(0);
+        await fetchCreateTap(address, tapCount);
       }
     }
     
@@ -51,6 +51,8 @@ function Home() {
 
     // return () => clearTimeout(timer);
   }, [address, tapCount]);
+
+  
 
   useEffect(() => {
     const fetchAll = async () => {
