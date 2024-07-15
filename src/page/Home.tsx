@@ -18,7 +18,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [tapCount, setTapCount] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
-  const [isTapping, setIsTapping] = useState(false);
+  // const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
@@ -29,18 +29,20 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    let timer: any;
+    fetchCreateTap(address, tapCount);
+    // setIsTapping(false); // Reset tapping state
+    // let timer: any;
 
-    if (isTapping) {
-      timer = setTimeout(() => {
-        // settapCount(tapCount-tapCount1
-        fetchCreateTap(address, tapCount);
-        setIsTapping(false); // Reset tapping state
-      }, 300); // 300 milliseconds delay
-    }
+    // if (isTapping) {
+    //   timer = setTimeout(() => {
+    //     // settapCount(tapCount-tapCount1
+    //     fetchCreateTap(address, tapCount);
+    //     setIsTapping(false); // Reset tapping state
+    //   }, 300); // 300 milliseconds delay
+    // }
 
-    return () => clearTimeout(timer);
-  }, [isTapping, address, tapCount]);
+    // return () => clearTimeout(timer);
+  }, [address, tapCount]);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -248,7 +250,7 @@ function Home() {
       setTapCount(tapCount + 1);
       setTotalTaps(totalTaps + 1);
       handleClick(event);
-      setIsTapping(true); // Set tapping state
+      // setIsTapping(true); // Set tapping state
     }
   };
 
@@ -264,7 +266,7 @@ function Home() {
       setRemainedEnergy(remainedEnergy - length);
       setTapCount(tapCount + length);
       handleMultiTouchStart(event);
-      setIsTapping(true); // Set tapping state
+      // setIsTapping(true); // Set tapping state
     }
   };
 
