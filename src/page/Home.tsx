@@ -30,6 +30,8 @@ function Home() {
   // var timer: any;
   useEffect(() => {
     fetchCreateTap(address, tapCount);
+    console.log("--------------------->TapCount", tapCount);
+    
     // setIsTapping(false); // Reset tapping state
     // let timer: any;
 
