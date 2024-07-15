@@ -288,10 +288,10 @@ function Home() {
   async function fetchCreateTap(walletAddress: string, tapCount: number) {
     console.log("------------->API request !---------->");
 
-    if (isFetching.current) return;
+    // if (isFetching.current) return;
     console.log("------------->API Start begin!---------->");
 
-    isFetching.current = true;
+    // isFetching.current = true;
     try {
       console.log("------------->API Start request!---------->");
       const response = await fetch(`${backendUrl}/api/v1/users/taps`, {
@@ -319,9 +319,10 @@ function Home() {
       }
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
-    } finally {
-      isFetching.current = false;
-    }
+    } 
+    // finally {
+    //   isFetching.current = false;
+    // }
   }
 
   // const handleTap = (event: any) => {
