@@ -33,6 +33,8 @@ function Home() {
       if (tapCount != 0) {
         setTapCount(0);
         await fetchCreateTap(address, tapCount);
+        console.log("-------------->OK");
+        
       }
     }
     
