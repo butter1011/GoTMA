@@ -18,7 +18,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [tapCount, setTapCount] = useState(0);
   const [totalTaps, setTotalTaps] = useState(0);
-  // const [isTapping, setIsTapping] = useState(false);
+  const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
@@ -29,32 +29,18 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    const updateTap = async () => {
-      if (tapCount != 0) {
-        setTapCount(0);
-        await fetchCreateTap(address, tapCount);
-        console.log("-------------->OK");
-        
-      }
+    let timer: any;
+
+    if (isTapping) {
+      timer = setTimeout(() => {
+        // settapCount(tapCount-tapCount1
+        fetchCreateTap(address, tapCount);
+        setIsTapping(false); // Reset tapping state
+      }, 300); // 300 milliseconds delay
     }
-    
-    updateTap();
-    console.log("--------------------->TapCount", tapCount);
-    // setIsTapping(false); // Reset tapping state
-    // let timer: any;
 
-    // if (isTapping) {
-    //   timer = setTimeout(() => {
-    //     // settapCount(tapCount-tapCount1
-    //     fetchCreateTap(address, tapCount);
-    //     setIsTapping(false); // Reset tapping state
-    //   }, 300); // 300 milliseconds delay
-    // }
-
-    // return () => clearTimeout(timer);
-  }, [address, tapCount]);
-
-  
+    return () => clearTimeout(timer);
+  }, [isTapping, address, tapCount]);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -86,11 +72,10 @@ function Home() {
       const timeSinceLastClick = now - lastClickTime;
       if (timeSinceLastClick >= 1000) {
         startRecovery();
-      } 
-      // else {
-      //   const timeoutId = setTimeout(startRecovery, 1000 - timeSinceLastClick);
-      //   return () => clearTimeout(timeoutId);
-      // }
+      } else {
+        const timeoutId = setTimeout(startRecovery, 1000 - timeSinceLastClick);
+        return () => clearTimeout(timeoutId);
+      }
     }
   }, [lastClickTime]);
 
@@ -122,7 +107,6 @@ function Home() {
   }
 
   async function fetchTodaysTap(walletAddress: string) {
-    
     if (isFetching.current) return;
 
     isFetching.current = true;
@@ -151,7 +135,6 @@ function Home() {
   }
 
   async function fetchTotalTap(walletAddress: string) {
-    
     if (isFetching.current) return;
     isFetching.current = true;
     try {
@@ -262,11 +245,10 @@ function Home() {
       setRemainedEnergy(remainedEnergy - 1);
       localStorage.setItem("remainedEnergy", String(remainedEnergy - 1));
       // clearTimeout(timer);
-      // setTapCount(tapCount + 1);
-      setTapCount(1);
+      setTapCount(tapCount + 1);
       setTotalTaps(totalTaps + 1);
       handleClick(event);
-      // setIsTapping(true); // Set tapping state
+      setIsTapping(true); // Set tapping state
     }
   };
 
@@ -282,19 +264,15 @@ function Home() {
       setRemainedEnergy(remainedEnergy - length);
       setTapCount(tapCount + length);
       handleMultiTouchStart(event);
-      // setIsTapping(true); // Set tapping state
+      setIsTapping(true); // Set tapping state
     }
   };
 
   async function fetchCreateTap(walletAddress: string, tapCount: number) {
-    console.log("------------->API request !---------->");
-
     // if (isFetching.current) return;
-    console.log("------------->API Start begin!---------->");
 
     // isFetching.current = true;
     try {
-      console.log("------------->API Start request!---------->");
       const response = await fetch(`${backendUrl}/api/v1/users/taps`, {
         method: "POST",
         headers: {
@@ -313,7 +291,7 @@ function Home() {
 
       const data = await response.json();
       if (!data.error) {
-        console.log("------------->API Success!---------->");
+        setTapCount(0);
         // setTotalTaps(totalTaps + data?.taps?.tap_amount);
         // setTapCount(data?.taps?.tap_amount);
         setRemainedEnergy(data?.taps?.tap_remaining);
