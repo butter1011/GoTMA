@@ -86,10 +86,11 @@ function Home() {
       const timeSinceLastClick = now - lastClickTime;
       if (timeSinceLastClick >= 1000) {
         startRecovery();
-      } else {
-        const timeoutId = setTimeout(startRecovery, 1000 - timeSinceLastClick);
-        return () => clearTimeout(timeoutId);
-      }
+      } 
+      // else {
+      //   const timeoutId = setTimeout(startRecovery, 1000 - timeSinceLastClick);
+      //   return () => clearTimeout(timeoutId);
+      // }
     }
   }, [lastClickTime]);
 
