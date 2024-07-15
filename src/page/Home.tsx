@@ -289,9 +289,11 @@ function Home() {
     console.log("------------->API request !---------->");
 
     if (isFetching.current) return;
+    console.log("------------->API Start begin!---------->");
 
     isFetching.current = true;
     try {
+      console.log("------------->API Start request!---------->");
       const response = await fetch(`${backendUrl}/api/v1/users/taps`, {
         method: "POST",
         headers: {
