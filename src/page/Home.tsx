@@ -29,10 +29,14 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    if (tapCount != 0) {
-      fetchCreateTap(address, tapCount);
-      setTapCount(0);
+    const updateTap = async () => {
+      if (tapCount != 0) {
+        await fetchCreateTap(address, tapCount);
+        setTapCount(0);
+      }
     }
+    
+    updateTap();
     console.log("--------------------->TapCount", tapCount);
     // setIsTapping(false); // Reset tapping state
     // let timer: any;
