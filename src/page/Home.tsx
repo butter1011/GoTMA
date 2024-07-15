@@ -121,6 +121,7 @@ function Home() {
   }
 
   async function fetchTodaysTap(walletAddress: string) {
+    
     if (isFetching.current) return;
 
     isFetching.current = true;
@@ -149,6 +150,7 @@ function Home() {
   }
 
   async function fetchTotalTap(walletAddress: string) {
+    
     if (isFetching.current) return;
     isFetching.current = true;
     try {
@@ -284,6 +286,8 @@ function Home() {
   };
 
   async function fetchCreateTap(walletAddress: string, tapCount: number) {
+    console.log("------------->API request !---------->");
+
     if (isFetching.current) return;
 
     isFetching.current = true;
@@ -306,6 +310,7 @@ function Home() {
 
       const data = await response.json();
       if (!data.error) {
+        console.log("------------->API request !---------->");
         // setTotalTaps(totalTaps + data?.taps?.tap_amount);
         // setTapCount(data?.taps?.tap_amount);
         setRemainedEnergy(data?.taps?.tap_remaining);
