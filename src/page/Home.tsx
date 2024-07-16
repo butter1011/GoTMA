@@ -30,7 +30,9 @@ function Home() {
   // var timer: any;
   useEffect(() => {
     const handleBlur = () => {
-      fetchCreateTap(address, tapCount);
+      if (document.visibilityState === 'hidden') {
+        fetchCreateTap(address, tapCount);
+      }
     };
 
     window.addEventListener('visibilitychange', handleBlur);
@@ -310,7 +312,7 @@ function Home() {
       }
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
-    } 
+    }
     // finally {
     //   isFetching.current = false;
     // }
