@@ -20,7 +20,6 @@ function Home() {
   const [totalTaps, setTotalTaps] = useState(0);
   const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
-  const [isCurrentlyInPage, setIsCurrentlyInPage] = useState(true)
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
   //   console.log('storedEnergystoredEnergy', storedEnergy)
