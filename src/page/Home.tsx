@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProgressBar from "../component/ProgressBar";
 import { isMobile } from "react-device-detect";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
@@ -21,7 +21,6 @@ function Home() {
   const [totalTaps, setTotalTaps] = useState(0);
   const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
-  const location = useLocation();
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
   //   console.log('storedEnergystoredEnergy', storedEnergy)
@@ -29,14 +28,8 @@ function Home() {
   //     setRemainedEnergy(parseInt(storedEnergy, 10));
   //   }
   // }, []);
-  // var timer: any;
-  useEffect(() => {
-    fetchCreateTap(address, tapCount);
- }, [location]);
-
   useEffect(() => {
     WebApp.ready();
-    // Enable the closing confirmation
     WebApp.enableClosingConfirmation();
     WebApp.onEvent("backButtonClicked", ()=>{
       fetchCreateTap(address, tapCount);
@@ -97,8 +90,6 @@ function Home() {
       }
     }
   }, [lastClickTime]);
-
-
 
   async function fetchData(walletAddress: string, userId: string) {
     if (isFetching.current) return;
@@ -288,9 +279,9 @@ function Home() {
   };
 
   async function fetchCreateTap(walletAddress: string, tapCount: number) {
-    // if (isFetching.current) return;
+    if (isFetching.current) return;
 
-    // isFetching.current = true;
+    isFetching.current = true;
     try {
       const response = await fetch(`${backendUrl}/api/v1/users/taps`, {
         method: "POST",
@@ -317,10 +308,9 @@ function Home() {
       }
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
+    } finally {
+      isFetching.current = false;
     }
-    // finally {
-    //   isFetching.current = false;
-    // }
   }
 
   // const handleTap = (event: any) => {
@@ -466,6 +456,7 @@ function Home() {
       <div className="flex fixed flex-row items-center bottom-2 footer w-[95%] h-[65px] justify-between bg-navbar-gradient rounded-xl box-border px-4">
         <Link
           to="/refs"
+          onClick={()=>fetchCreateTap(address, tapCount)}
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
         >
           <img
@@ -477,6 +468,7 @@ function Home() {
         </Link>
         <Link
           to="/quest"
+          onClick={()=>fetchCreateTap(address, tapCount)}
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
         >
           <img
@@ -488,6 +480,7 @@ function Home() {
         </Link>
         <Link
           to="/leaderboard"
+          onClick={()=>fetchCreateTap(address, tapCount)}
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
         >
           <img
