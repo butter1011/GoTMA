@@ -29,6 +29,18 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
+    const handleBlur = () => {
+      fetchCreateTap(address, tapCount);
+    };
+
+    window.addEventListener('visibilitychange', handleBlur);
+
+    return () => {
+      window.removeEventListener('visibilitychange', handleBlur);
+    };
+  }, []);
+
+  useEffect(() => {
     let timer: any;
 
     if (isTapping) {
