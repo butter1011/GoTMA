@@ -30,13 +30,17 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    WebApp.MainButton.hide();
-    // Expand the Telegram Mini App to full screen
-    WebApp.expand();
-    // Initialize the Telegram Mini App SDK
     WebApp.ready();
     // Enable the closing confirmation
     WebApp.enableClosingConfirmation();
+    WebApp.onEvent("popupClosed", ()=>{
+      console.log("closed the game");
+    })
+
+    WebApp.onEvent("viewportChanged", ()=>{
+      console.log("Viewport changed");
+      
+    })
 
   }, [])
 
