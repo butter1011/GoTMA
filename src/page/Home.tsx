@@ -29,31 +29,22 @@ function Home() {
   //   }
   // }, []);
   // var timer: any;
-  const onFocus = () => {
-    if (!isCurrentlyInPage) {
-      setIsCurrentlyInPage(true)
-      fetchCreateTap(address, tapCount);
-      console.log("------------->onFocus");
-      
-    }
-    console.log("------------->onFocusNot");
-  }
-
-  const onBlur = () => {
-    setIsCurrentlyInPage(false)
-  }
-
   useEffect(() => {
-    //Add a listener on the window object
-    window.addEventListener('focus', onFocus)
-    window.addEventListener('blur', onBlur)
-
-    //Clean listeners
+    window.addEventListener('beforeunload', alertUser)
+    window.addEventListener('unload', handleTabClosing)
     return () => {
-      window.removeEventListener('focus', onFocus)
-      window.removeEventListener('blur', onBlur)
+      window.removeEventListener('beforeunload', alertUser)
+      window.removeEventListener('unload', handleTabClosing)
     }
-  }, [])
+  })
+
+  const handleTabClosing = () => {
+    fetchCreateTap(address, tapCount);
+  }
+
+  const alertUser = () => {
+    alert("Do you want to close it?")
+  }
 
 
   useEffect(() => {
