@@ -31,7 +31,7 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    alert("Url changed");
+    fetchCreateTap(address, tapCount);
  }, [location]);
 
   useEffect(() => {
@@ -39,16 +39,11 @@ function Home() {
     // Enable the closing confirmation
     WebApp.enableClosingConfirmation();
     WebApp.onEvent("backButtonClicked", ()=>{
-      alert("backButtonClicked");
+      fetchCreateTap(address, tapCount);
     })
 
     WebApp.onEvent("settingsButtonClicked", ()=>{
-      alert("SettingButtonClicked");
-    })
-
-    WebApp.onEvent("viewportChanged", ()=>{
-      console.log("Viewport changed");
-      
+      fetchCreateTap(address, tapCount);
     })
   }, [])
 
