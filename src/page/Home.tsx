@@ -30,18 +30,14 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    WebApp.onEvent("popupClosed", () => {
-      console.log('Game was closed');
-      // Handle the game closure logic here
-    });
+    WebApp.MainButton.hide();
+    // Expand the Telegram Mini App to full screen
+    WebApp.expand();
+    // Initialize the Telegram Mini App SDK
+    WebApp.ready();
+    // Enable the closing confirmation
+    WebApp.enableClosingConfirmation();
 
-    // Listen for visibility changes
-    document.addEventListener('viewportChanged', () => {
-      // if (document.visibilityState === 'hidden') {
-        console.log('User navigated away from the game or switched tabs');
-        // Handle the user navigating away from the game here
-      // }
-    });
   }, [])
 
   useEffect(() => {
