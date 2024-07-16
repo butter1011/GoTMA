@@ -4,6 +4,7 @@ import ProgressBar from "../component/ProgressBar";
 import { isMobile } from "react-device-detect";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import { useEnergy } from "../hooks/EnergyContext";
+import WebApp from '@twa-dev/sdk';
 
 function Home() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL as string;
@@ -29,22 +30,19 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    window.addEventListener('beforeunload', alertUser)
-    window.addEventListener('unload', handleTabClosing)
-    return () => {
-      window.removeEventListener('beforeunload', alertUser)
-      window.removeEventListener('unload', handleTabClosing)
-    }
-  })
+    WebApp.onEvent("popupClosed", () => {
+      console.log('Game was closed');
+      // Handle the game closure logic here
+    });
 
-  const handleTabClosing = () => {
-    fetchCreateTap(address, tapCount);
-  }
-
-  const alertUser = () => {
-    alert("Do you want to close it?")
-  }
-
+    // Listen for visibility changes
+    document.addEventListener('viewportChanged', () => {
+      // if (document.visibilityState === 'hidden') {
+        console.log('User navigated away from the game or switched tabs');
+        // Handle the user navigating away from the game here
+      // }
+    });
+  }, [])
 
   useEffect(() => {
     let timer: any;
