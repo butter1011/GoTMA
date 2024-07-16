@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, useLocation } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import ProgressBar from "../component/ProgressBar";
 import { isMobile } from "react-device-detect";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
