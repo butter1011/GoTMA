@@ -20,6 +20,7 @@ function Home() {
   const [totalTaps, setTotalTaps] = useState(0);
   const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
+  const [isCurrentlyInPage, setIsCurrentlyInPage] = useState(true)
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
   //   console.log('storedEnergystoredEnergy', storedEnergy)
@@ -29,18 +30,27 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
-    const handleBlur = () => {
-      if (document.visibilityState === 'hidden') {
-        fetchCreateTap(address, tapCount);
-      }
-    };
+    //Add a listener on the window object
+    window.addEventListener('focus', onFocus)
+    window.addEventListener('blur', onBlur)
 
-    window.addEventListener('visibilitychange', handleBlur);
-
+    //Clean listeners
     return () => {
-      window.removeEventListener('visibilitychange', handleBlur);
-    };
-  }, []);
+      window.removeEventListener('focus', onFocus)
+      window.removeEventListener('blur', onBlur)
+    }
+  }, [])
+
+  const onFocus = () => {
+    if (!isCurrentlyInPage) {
+      setIsCurrentlyInPage(true)
+      fetchCreateTap(address, tapCount);
+    }
+  }
+
+  const onBlur = () => {
+    setIsCurrentlyInPage(false)
+  }
 
   useEffect(() => {
     let timer: any;
