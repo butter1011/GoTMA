@@ -29,6 +29,20 @@ function Home() {
   //   }
   // }, []);
   // var timer: any;
+  const onFocus = () => {
+    if (!isCurrentlyInPage) {
+      setIsCurrentlyInPage(true)
+      fetchCreateTap(address, tapCount);
+      console.log("------------->onFocus");
+      
+    }
+    console.log("------------->onFocusNot");
+  }
+
+  const onBlur = () => {
+    setIsCurrentlyInPage(false)
+  }
+
   useEffect(() => {
     //Add a listener on the window object
     window.addEventListener('focus', onFocus)
@@ -41,16 +55,6 @@ function Home() {
     }
   }, [])
 
-  const onFocus = () => {
-    if (!isCurrentlyInPage) {
-      setIsCurrentlyInPage(true)
-      fetchCreateTap(address, tapCount);
-    }
-  }
-
-  const onBlur = () => {
-    setIsCurrentlyInPage(false)
-  }
 
   useEffect(() => {
     let timer: any;
