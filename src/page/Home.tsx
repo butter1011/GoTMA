@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProgressBar from "../component/ProgressBar";
 import { isMobile } from "react-device-detect";
 import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
@@ -21,6 +21,7 @@ function Home() {
   const [totalTaps, setTotalTaps] = useState(0);
   const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
   //   console.log('storedEnergystoredEnergy', storedEnergy)
@@ -31,11 +32,11 @@ function Home() {
   useEffect(() => {
     WebApp.ready();
     WebApp.enableClosingConfirmation();
-    WebApp.onEvent("backButtonClicked", ()=>{
+    WebApp.onEvent("backButtonClicked", () => {
       fetchCreateTap(address, tapCount);
     })
 
-    WebApp.onEvent("settingsButtonClicked", ()=>{
+    WebApp.onEvent("settingsButtonClicked", () => {
       fetchCreateTap(address, tapCount);
     })
   }, [])
@@ -454,9 +455,8 @@ function Home() {
 
       {/* Bottom Menu Button */}
       <div className="flex fixed flex-row items-center bottom-2 footer w-[95%] h-[65px] justify-between bg-navbar-gradient rounded-xl box-border px-4">
-        <Link
-          to="/refs"
-          onClick={()=>fetchCreateTap(address, tapCount)}
+        <div
+          onClick={async () => { await fetchCreateTap(address, tapCount); navigate("/refs"); }}
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
         >
           <img
@@ -465,10 +465,9 @@ function Home() {
             alt="Refs"
           />
           <span className="text-xs">Refs</span>
-        </Link>
-        <Link
-          to="/quest"
-          onClick={()=>fetchCreateTap(address, tapCount)}
+        </div>
+        <div
+          onClick={async () => { await fetchCreateTap(address, tapCount); navigate("/quest"); }}
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
         >
           <img
@@ -477,10 +476,9 @@ function Home() {
             alt="Tasks"
           />
           <span className="text-xs">Tasks</span>
-        </Link>
-        <Link
-          to="/leaderboard"
-          onClick={()=>fetchCreateTap(address, tapCount)}
+        </div>
+        <div
+          onClick={async () => { await fetchCreateTap(address, tapCount); navigate("/leaderboard"); }}
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
         >
           <img
@@ -489,7 +487,7 @@ function Home() {
             alt="Ranks"
           />
           <span className="text-xs">Ranks</span>
-        </Link>
+        </div>
         {/* <Link
           to="/dailybonus"
           className="text-white w-20 h-20 flex flex-col items-center justify-center"
