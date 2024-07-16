@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLocation } from "react";
 import { Link } from "react-router-dom";
 import ProgressBar from "../component/ProgressBar";
 import { isMobile } from "react-device-detect";
@@ -21,6 +21,7 @@ function Home() {
   const [totalTaps, setTotalTaps] = useState(0);
   const [isTapping, setIsTapping] = useState(false);
   const isFetching = useRef(false);
+  const location = useLocation();
   // useEffect(() => {
   //   const storedEnergy = localStorage.getItem("remainedEnergy");
   //   console.log('storedEnergystoredEnergy', storedEnergy)
@@ -30,18 +31,25 @@ function Home() {
   // }, []);
   // var timer: any;
   useEffect(() => {
+    alert("Url changed");
+ }, [location]);
+
+  useEffect(() => {
     WebApp.ready();
     // Enable the closing confirmation
     WebApp.enableClosingConfirmation();
-    WebApp.onEvent("popupClosed", ()=>{
-      console.log("closed the game");
+    WebApp.onEvent("backButtonClicked", ()=>{
+      alert("backButtonClicked");
+    })
+
+    WebApp.onEvent("settingsButtonClicked", ()=>{
+      alert("SettingButtonClicked");
     })
 
     WebApp.onEvent("viewportChanged", ()=>{
       console.log("Viewport changed");
       
     })
-
   }, [])
 
   useEffect(() => {
